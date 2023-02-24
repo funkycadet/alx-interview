@@ -4,17 +4,17 @@ Change comes from within
 """
 
 
-def makeChange(coins: list, total: int) -> int:
+def makeChange(coins, total):
     """
     method to determine the fewest number of coins
-    in a list needed to meet a given total
+    from a list of coins needed to meet a given total
     """
-    minCoins = [float('inf')] * (total + 1)
+    coins.sort(reverse=True)
 
-    minCoins[0] = 0
+    count = 0
 
     for coin in coins:
-        for i in range(coin, total + 1):
-            minCoins[i] = min(minCoins[i], minCoins[i - coin] + 1)
-
-    return minCoins[total] if minCoins[total] != float('inf') else -1
+        while total >= coin:
+            total -= coin
+            count += 1
+    return count if total == 0 else -1
